@@ -139,7 +139,7 @@ S3.prototype.putObject = function (bucket, objectName, object, options) {
     object.setName(objectName);
   }
   
-  request.setContent(object.getDataAsString());
+  request.setContent(object);
   request.setContentType(object.getContentType());
   
   request.execute(options);  
