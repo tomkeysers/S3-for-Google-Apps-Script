@@ -57,7 +57,6 @@ S3Request.prototype.getContentType = function () {
  * @return {S3Request} this request, for chaining
  */
 S3Request.prototype.setContent = function(content) {
-  if (typeof content != 'string') throw 'content must be passed as a string'
   this.content = content;
   return this;
 };
@@ -390,7 +389,10 @@ S3Request.prototype.credentialString = function(datetime) {
 }
 
 S3Request.prototype.hexEncodedHash = function(string) {
-  return this.hex(Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, string, Utilities.Charset.UTF_8));
+  if(typeof string === "string")
+    return this.hex(Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, string, Utilities.Charset.UTF_8));
+  else
+    return this.hex(Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, string.getBytes()));
 }
 
 S3Request.prototype.hexEncodedBodyHash = function() {
